@@ -36,66 +36,61 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   }, []);
 
   /* ==============================
-     Fetch Sidebar Counts
-  ============================== */
-  useEffect(() => {
-    const fetchSidebarCounts = async () => {
-      try {
-        const token = getToken();
+   Fetch Sidebar Counts
+============================== */
+useEffect(() => {
+  const fetchSidebarCounts = async () => {
+    // Stop polling when tab isn't visible
+    if (document.hidden) return;
 
-        /* ---------------------------
-           Pending Transactions
-        --------------------------- */
-        const txRes = await fetch(
+    try {
+      const token = getToken();
+
+      const [txRes, msgRes] = await Promise.all([
+        fetch(
           `${process.env.REACT_APP_API_URL}/api/admin/transactions/pending-count`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
-
-        if (txRes.ok) {
-          const txData = await txRes.json();
-          setPendingCount(txData.pendingCount || 0);
-        }
-
-        /* ---------------------------
-           Unread Support Messages
-        --------------------------- */
-        const msgRes = await fetch(
+        ),
+        fetch(
           `${process.env.REACT_APP_API_URL}/api/support/admin/unread`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
+        ),
+      ]);
 
-        if (msgRes.ok) {
-          const msgData = await msgRes.json();
-
-          // Ensure array
-          if (Array.isArray(msgData)) {
-            setUnreadMessages(msgData.length);
-          } else if (Array.isArray(msgData.data)) {
-            setUnreadMessages(msgData.data.length);
-          } else {
-            setUnreadMessages(0);
-          }
-        }
-      } catch (error) {
-        console.error("Sidebar fetch error:", error);
+      if (txRes.ok) {
+        const txData = await txRes.json();
+        setPendingCount(txData.pendingCount || 0);
       }
-    };
 
-    fetchSidebarCounts();
+      if (msgRes.ok) {
+        const msgData = await msgRes.json();
 
-    // Auto refresh every 30 seconds
-    const interval = setInterval(fetchSidebarCounts, 30000);
+        setUnreadMessages(
+          Array.isArray(msgData)
+            ? msgData.length
+            : msgData?.data?.length || 0
+        );
+      }
+    } catch (error) {
+      console.error("Sidebar fetch error:", error);
+    }
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  fetchSidebarCounts();
+
+  // Changed from 30s → 2 minutes
+  const interval = setInterval(fetchSidebarCounts, 120000);
+
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <>
