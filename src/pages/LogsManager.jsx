@@ -3,12 +3,8 @@ import axios from "axios";
 import "../styles/table.css";
 
 // platform icons
-import instagramIcon from "../assets/instagram.png";
 import facebookIcon from "../assets/facebook.png";
 import twitterIcon from "../assets/twitter.png";
-import tiktokIcon from "../assets/tiktok.png";
-import mailIcon from "../assets/mail.png";
-import googleVoiceIcon from "../assets/google-voice.png";
 import netflixIcon from "../assets/netflix.png";
 import textingIcon from "../assets/texting.png";
 import vpnIcon from "../assets/vpn.png";
@@ -16,12 +12,9 @@ import vpnIcon from "../assets/vpn.png";
 const API = process.env.REACT_APP_API_URL;
 
 const platformIcons = {
-  Instagram: instagramIcon,
   Facebook: facebookIcon,
   Twitter: twitterIcon,
-  TikTok: tiktokIcon,
-  Mail: mailIcon,
-  "Google Voice": googleVoiceIcon,
+  "Twitter (X)": twitterIcon,
   Netflix: netflixIcon,
   VPN: vpnIcon,
   "Texting Apps": textingIcon,
@@ -224,12 +217,6 @@ const AdminLogs = () => {
     }
   };
 
-  // const filteredLogs = logs.filter(
-  //   (log) =>
-  //     log.name.toLowerCase().includes(search.toLowerCase()) ||
-  //     log.platform.toLowerCase().includes(search.toLowerCase())
-  // );
-
   const filteredLogs = logs.filter((log) =>
   (log.name || "").toLowerCase().includes(search.toLowerCase()) ||
   (log.platform || "").toLowerCase().includes(search.toLowerCase())
@@ -254,16 +241,11 @@ const AdminLogs = () => {
 
       <div className="logs-table-controls">
         <select name="platform" value={form.platform} onChange={handleChange}>
-          <option value="">Platform</option>
-          <option value="Instagram">Instagram</option>
           <option value="Facebook">Facebook</option>
           <option value="Twitter">Twitter</option>
-          <option value="TikTok">TikTok</option>
-          <option value="Mail">Mail</option>
-          <option value="Google Voice">Google Voice</option>
           <option value="Netflix">Netflix</option>
           <option value="VPN">VPN</option>
-          <option value="Texting Apps">Texting Apps</option>
+          <option value="Texting Apps">Texting Apps</option>    
         </select>
 
         <input
@@ -347,7 +329,7 @@ const AdminLogs = () => {
               <tr key={log._id}>
                 <td data-label="Platform" className="platform-cell">
                   <img
-                    src={platformIcons[log.platform] || mailIcon}
+                   src={platformIcons[log.platform] || facebookIcon}
                     alt={log.platform}
                     className="platform-icon"
                   />
@@ -458,15 +440,11 @@ const AdminLogs = () => {
 
             <select name="platform" value={form.platform} onChange={handleChange}>
               <option value="">Platform</option>
-              <option value="Instagram">Instagram</option>
               <option value="Facebook">Facebook</option>
               <option value="Twitter">Twitter</option>
-              <option value="TikTok">TikTok</option>
-              <option value="Mail">Mail</option>
-              <option value="Google Voice">Google Voice</option>
               <option value="Netflix">Netflix</option>
               <option value="VPN">VPN</option>
-              <option value="Texting Apps">Texting Apps</option>
+              <option value="Texting Apps">Texting Apps</option>  
             </select>
 
             <input name="name" value={form.name} onChange={handleChange} />
