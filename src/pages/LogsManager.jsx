@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/table.css";
-
+ 
 // platform icons
 import facebookIcon from "../assets/facebook.png";
 import twitterIcon from "../assets/twitter.png";
