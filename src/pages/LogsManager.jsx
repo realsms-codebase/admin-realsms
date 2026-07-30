@@ -242,7 +242,7 @@ const AdminLogs = () => {
       <div className="logs-table-controls">
         <select name="platform" value={form.platform} onChange={handleChange}>
           <option value="Facebook">Facebook</option>
-          <option value="Twitter (X)">Twitter (X)</option>
+          <option value="Twitter (X)">Twitter (X)</option> 
           <option value="Netflix">Netflix</option>
           <option value="VPN">VPN</option>
           <option value="Texting Apps">Texting Apps</option>    
