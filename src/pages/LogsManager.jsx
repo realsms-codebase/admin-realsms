@@ -7,11 +7,13 @@ import facebookIcon from "../assets/facebook.png";
 import twitterIcon from "../assets/twitter.png";
 import netflixIcon from "../assets/netflix.png";
 import textingIcon from "../assets/texting.png";
+import instagramIcon from "../assets/instagram.png";
 import vpnIcon from "../assets/vpn.png";
 
 const API = process.env.REACT_APP_API_URL;
 
 const platformIcons = {
+  Instagram: instagramIcon,
   Facebook: facebookIcon,
   Twitter: twitterIcon,
   "Twitter (X)": twitterIcon,
@@ -241,6 +243,7 @@ const AdminLogs = () => {
 
       <div className="logs-table-controls">
         <select name="platform" value={form.platform} onChange={handleChange}>
+          <option value="Instagram">Instagram</option>
           <option value="Facebook">Facebook</option>
           <option value="Twitter (X)">Twitter (X)</option> 
           <option value="Netflix">Netflix</option>
@@ -440,6 +443,7 @@ const AdminLogs = () => {
 
             <select name="platform" value={form.platform} onChange={handleChange}>
               <option value="">Platform</option>
+              <option value="Instagram">Instagram</option>
               <option value="Facebook">Facebook</option>
               <option value="Twitter (X)">Twitter (X)</option>
               <option value="Netflix">Netflix</option>
