@@ -80,6 +80,13 @@ const LogsOrders = () => {
     link.click();
   };
 
+  const truncateText = (text, maxLength = 17) => {
+  if (!text) return "-";
+  return text.length > maxLength
+    ? text.slice(0, maxLength) + "..."
+    : text;
+};
+
   return (
     <div className="table-page">
       <h1>Logs Orders</h1>
@@ -103,7 +110,7 @@ const LogsOrders = () => {
       <table className="admin-table">
         <thead>
           <tr>
-            <th>User</th> {/* NEW */}
+            <th>User</th> 
             <th>Date</th>
             <th>Platform</th>
             <th>Product</th>
@@ -144,9 +151,9 @@ const LogsOrders = () => {
                   {formatValue(log.platform)}
                 </td>
 
-                <td data-label="Product">
-                  {formatValue(log.product)}
-                </td>
+                <td data-label="Product" title={log.product}>
+  {truncateText(formatValue(log.product), 17)}
+</td>
 
                 <td data-label="Price">
                   ₦{log.price?.toLocaleString() || "0"}
